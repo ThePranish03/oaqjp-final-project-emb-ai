@@ -1,0 +1,11 @@
+$ python -m unittest -v test_emotion_detection.py
+ test_blank_input_returns_null_values ... ok
+ test_http_400_returns_null_values ... ok
+ test_output_format_and_dominant_emotion ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+
+NOTE: These are actual local unit-test results. The Watson API was mocked. This is not live Coursera interactive-shell/API output for Q3.
