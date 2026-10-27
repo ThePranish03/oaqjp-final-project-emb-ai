@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Emotion Detector</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">WATSON NLP · TEXT ANALYSIS</p>
+      <h1>Emotion <span>Detector</span></h1>
+      <p class="intro">Understand the emotions behind a sentence. Enter a thought, message, or short paragraph to analyze its emotional tone.</p>
+      <form action="{{ url_for('detect_emotion') }}" method="post">
+        <label for="textToAnalyze">Your text</label>
+        <textarea id="textToAnalyze" name="textToAnalyze" rows="4" placeholder="For example: I am thrilled that everything worked out!">{{ text }}</textarea>
+        <button type="submit">Analyze emotions <span aria-hidden="true">→</span></button>
+      </form>
+    </section>
+    {% if error %}<section class="notice error" role="alert"><strong>Could not analyze</strong><p>{{ error }}</p></section>{% endif %}
+    {% if result %}
+    <section class="results" aria-live="polite">
+      <div class="result-head"><div><p class="eyebrow">ANALYSIS RESULT</p><h2>Emotion profile</h2></div><div class="dominant"><span>Dominant emotion</span><strong>{{ result.dominant_emotion|title }}</strong></div></div>
+      <div class="scores">
+        {% for emotion in ['joy', 'sadness', 'anger', 'fear', 'disgust'] %}
+        <div class="score-row"><div class="score-label"><span>{{ emotion|title }}</span><strong>{% if result[emotion] is not none %}{{ '%.3f'|format(result[emotion]) }}{% else %}N/A{% endif %}</strong></div><div class="track"><div class="fill {{ emotion }}" style="width: {{ (result[emotion] * 100)|round(1) if result[emotion] is not none else 0 }}%"></div></div></div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+    <footer>Emotion Detector · Coursera final project practice</footer>
+  </main>
+</body>
+</html>

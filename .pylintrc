@@ -1,0 +1,8 @@
+[MAIN]
+py-version=3.10
+
+[MESSAGES CONTROL]
+disable=missing-module-docstring,too-few-public-methods
+
+[FORMAT]
+max-line-length=100
